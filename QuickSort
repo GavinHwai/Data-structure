@@ -1,0 +1,63 @@
+/* 
+ * QuickSort.cpp 
+*  交换排序之——快速排序
+ *  Created on: 2015.07.26
+ *      Author: Ye kangfei
+ */  
+  
+#include <iostream> 
+using namespace std;
+
+int Partition(int* array, int low , int high){
+    int pivot=array[low];
+    while(low<high){
+        while(low<high && array[high]>=pivot) --high;
+        array[low] = array[high];
+        while(low<high && array[low]<=pivot) ++low;
+        array[high] = array[low];
+    }
+    array[low] = pivot;
+    return low;
+}
+
+void QuickSort (int* array, int low , int high) {  
+    int k;
+
+    if (low<high){
+        int pivotpos=Partition(array,low,high);
+        QuickSort(array,low,pivotpos-1);
+        QuickSort(array,pivotpos+1,high);
+    }
+}
+
+int main() {   
+    
+    int n=7;
+    int array[7] = {4, 5, 1, 2, 7 , 3 , 8}; 
+  
+    cout<<"Initial sequence："<<endl;
+    for (int i=0; i<n; i++)         //输出初始排序序列
+            cout << array[i] << " ";  
+    cout << endl << endl;  
+  
+    QuickSort(array, 0 , 6);           //调用函数
+  
+    cout<<endl<<"Ordered sequence："<<endl;
+    for (int i=0; i<n; i++)         //输出排序结果
+        cout << array[i] << " ";  
+    cout << endl << endl;  
+  
+    return 0;  
+}
+
+/*
+快速排序是基于分治法对冒泡排序的一种改进，
+每一趟排序需要将待排序的序列独立分成两部分，并返回基准元素的位置，
+使得基准元素左边的元素均不大于基准元素，右边元素均不小于基准元素。而这样的一个功能交给Partition（）实现；
+
+算法的核心也正是此函数，
+
+具体性能分析如下：
+
+
+*/
